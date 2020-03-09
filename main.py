@@ -31,7 +31,7 @@ for t in timeline.iter_lines():
     elif dec == ':thump':
         stat = 1
     if stat:
-        print('.')
+        pass
     else:
         try:
             newdec = json.loads(re.sub('data: ','',dec))

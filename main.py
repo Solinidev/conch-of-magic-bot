@@ -36,7 +36,7 @@ for t in timeline.iter_lines():
         try:
             newdec = json.loads(re.sub('data: ','',dec))
             if newdec['type'] == 'mention':
-                print("new mention")
+                print("new mention" + ' ' + time.strftime('%X', time.localtime(time.time())))
                 msg = random.choice(data.kotoba)
                 print('message: '+msg)
                 toot_id = newdec['status']['id']

@@ -36,15 +36,18 @@ for t in timeline.iter_lines():
         try:
             newdec = json.loads(re.sub('data: ','',dec))
             if newdec['type'] == 'mention':
-                print("new mention" + ' ' + time.strftime('%X', time.localtime(time.time())))
-                msg = random.choice(data.kotoba)
-                print('message: '+msg)
-                toot_id = newdec['status']['id']
-                print('toot_id: '+str(toot_id))
-                reply_to_account = newdec['account']['acct']
-                print('reply_to_account: '+reply_to_account)
-                message = '@'+reply_to_account+' '+msg
-                print('--------------------------------------------------')
-                toot(message, toot_id)
+                if newdec['account']['bot'] == False:
+                    print("new mention" + ' ' + time.strftime('%X', time.localtime(time.time())))
+                    msg = random.choice(data.kotoba)
+                    print('message: '+msg)
+                    toot_id = newdec['status']['id']
+                    print('toot_id: '+str(toot_id))
+                    reply_to_account = newdec['account']['acct']
+                    print('reply_to_account: '+reply_to_account)
+                    message = '@'+reply_to_account+' '+msg
+                    print('--------------------------------------------------')
+                    toot(message, toot_id)
+                else:
+                    pass
         except:
             pass

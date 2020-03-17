@@ -16,7 +16,10 @@ def toot(message, toot_id):
     d['status'] = message
     d['visibility'] = 'unlisted'
     d['in_reply_to_id'] = toot_id
-    r = requests.post(instance+'/api/v1/statuses', headers=headers, data=d)
+    requests.post(instance+'/api/v1/statuses', headers=headers, data=d)
+
+def follow(n):
+    requests.post(instance+'/api/v1/accounts/'+str(n)+'/follow', headers=headers)
 
 uri = instance+'/api/v1/streaming/user'
 timeline = requests.get(uri, headers=headers, stream=True)
@@ -49,5 +52,10 @@ for t in timeline.iter_lines():
                     toot(message, toot_id)
                 else:
                     pass
+            elif newdec['type'] == 'follow':
+                print("new follow" + ' ' + time.strftime('%X', time.localtime(time.time())))
+                n = newdec['account']['id']
+                print('followed by'+'@'+n)
+                follow(n)
         except:
             pass
